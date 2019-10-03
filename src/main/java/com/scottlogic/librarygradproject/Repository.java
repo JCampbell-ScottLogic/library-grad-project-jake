@@ -1,10 +1,11 @@
 package com.scottlogic.librarygradproject;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface Repository<T> {
-    T get(int id);
+public interface Repository<T,S> {
+    Optional<T> get(S id);
     List<T> getAll();
-    void add(T entity);
-    void remove(int id);
+    S add(T entity);
+    S remove(S id);
 }
