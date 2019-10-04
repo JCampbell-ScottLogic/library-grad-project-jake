@@ -61,7 +61,7 @@ public class BookRepositoryTest {
         repo.add(newBook2);
 
         // Act
-        Book book = repo.get(1);
+        Book book = repo.get(1).get();
 
         // Assert
         assertEquals(newBook2, book);

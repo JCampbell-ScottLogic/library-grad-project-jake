@@ -2,14 +2,15 @@ package com.scottlogic.librarygradproject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class BookRepository implements Repository<Book> {
+public class BookRepository implements Repository<Book,Integer> {
 
     private List<Book> bookCollection = new ArrayList<>();
 
     @Override
-    public Book get(int id) {
-        return bookCollection.stream().filter(book -> book.getId() == id).findFirst().get();
+    public Optional<Book> get(Integer id) {
+        return bookCollection.stream().filter(book -> book.getId() == id).findFirst();
     }
 
     @Override
@@ -18,14 +19,20 @@ public class BookRepository implements Repository<Book> {
     }
 
     @Override
-    public void add(Book entity) {
-        entity.setId(bookCollection.size());
+    public Integer add(Book entity) {
+        int id = bookCollection.size();
+
+        entity.setId(id);
         bookCollection.add(entity);
+        return  id;
     }
 
     @Override
-    public void remove(int id) {
-        Book bookToRemove = get(id);
-        bookCollection.remove(bookToRemove);
+    public Integer remove(Integer id) {
+        if (get(id).isPresent()) {
+            bookCollection.remove(get(id).get());
+            return id;
+        }
+        return -1;
     }
 }
