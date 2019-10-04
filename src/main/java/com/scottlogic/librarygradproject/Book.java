@@ -1,5 +1,7 @@
 package com.scottlogic.librarygradproject;
 
+import java.util.Objects;
+
 public class Book {
     private int id;
     private String isbn;
@@ -64,10 +66,10 @@ public class Book {
         Book book = (Book) o;
 
         if (id != book.id) return false;
-        if (isbn != null ? !isbn.equals(book.isbn) : book.isbn != null) return false;
-        if (title != null ? !title.equals(book.title) : book.title != null) return false;
-        if (author != null ? !author.equals(book.author) : book.author != null) return false;
-        return publishDate != null ? publishDate.equals(book.publishDate) : book.publishDate == null;
+        if (!Objects.equals(isbn, book.isbn)) return false;
+        if (!Objects.equals(title, book.title)) return false;
+        if (!Objects.equals(author, book.author)) return false;
+        return Objects.equals(publishDate, book.publishDate);
     }
 
     @Override

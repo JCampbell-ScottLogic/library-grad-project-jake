@@ -2,6 +2,7 @@ package com.scottlogic.librarygradproject;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class BooksControllerTest {
 
-    private MockMvc mockMvc;
+
     private BooksController controller;
     private BookService mockService;
 
@@ -23,19 +24,21 @@ public class BooksControllerTest {
     public void setUp() {
         mockService = mock(BookService.class);
         controller = new BooksController(mockService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @Test
-    public void get_api_books() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/books"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"));
 
     }
+//    private MockMvc mockMvc;
+//
+//    mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+//    @Test
+//    public void get_api_books() throws Exception{
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/books"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"));
+//
+//    }
 
     @Test
-    public void getAll_Calls_Repo_GetAll() {
+    public void getAll_Calls_Service_GetAll() {
         // Act
         controller.getAll();
         // Assert
@@ -43,7 +46,7 @@ public class BooksControllerTest {
     }
 
     @Test
-    public void get_With_Id_Calls_Repo_Get() {
+    public void get_With_Id_Calls_Service_Get() {
         // Arrange
         int id = 1;
         // Act
@@ -52,15 +55,8 @@ public class BooksControllerTest {
         verify(mockService).get(id);
     }
 
-//    @Test
-//    public void get_With_Incorrect_Id_Throws_Null(){
-//        assertThrows(NullPointerException.class,() -> {
-//           controller.get(8);
-//        });
-//    }
-
     @Test
-    public void post_With_Book_Calls_Repo_Add() {
+    public void post_With_Book_Calls_Service_Add() {
         //Arrange
         Book newBook = new Book();
         // Act
@@ -70,12 +66,22 @@ public class BooksControllerTest {
     }
 
     @Test
-    public void delete_With_Id_Calls_Repo_Remove() {
+    public void delete_With_Id_Calls_Service_Remove() {
         // Arrange
         int id = 1;
         // Act
         controller.delete(id);
         // Assert
         verify(mockService).remove(id);
+    }
+
+    @Test
+    public void put_With_Book_Calls_Service_Put(){
+        //Arrange
+        Book book = new Book();
+        //Act
+        controller.put(book);
+        //Assert
+        verify(mockService).put(book);
     }
 }

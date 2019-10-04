@@ -19,7 +19,8 @@ public class BookService {
     }
 
     public Book get(int id) {
-        return bookRepo.get(id).orElseThrow(() -> new NoSuchElementException("Book with id " + id + " not found"));
+        Optional<Book> foundBook = bookRepo.get(id);
+        return foundBook.orElseThrow(() -> new NoSuchElementException("Book with id " + id + " not found"));
     }
 
     public int remove(int id) {

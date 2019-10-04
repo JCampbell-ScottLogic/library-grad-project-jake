@@ -22,7 +22,7 @@ public class BookRepository implements Repository<Book,Integer> {
     public Integer add(Book entity) {
         int id = bookCollection.size();
 
-        entity.setId(bookCollection.size());
+        entity.setId(id);
         bookCollection.add(entity);
         return  id;
     }
