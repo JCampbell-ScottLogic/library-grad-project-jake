@@ -1,6 +1,7 @@
 package com.scottlogic.librarygradproject;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Book {
     private int id;
@@ -12,6 +13,9 @@ public class Book {
     public Book() { }
 
     public Book(String isbn, String title, String author, String publishDate) {
+//        UUID test = UUID.randomUUID();
+//        test.-
+
         this.isbn = isbn;
         this.title = title;
         this.author = author;

@@ -1,6 +1,7 @@
 package com.scottlogic.librarygradproject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -9,9 +10,15 @@ import java.util.Optional;
 public class BookService {
     private BookRepository bookRepo;
 
-    @Autowired
+//    @Autowired
     public BookService(BookRepository bookRepository){
+        System.out.println("inside service");
+        System.out.println(bookRepository.getAll());
         bookRepo = bookRepository;
+
+        if (bookRepo.get(0).isPresent()) {
+            System.out.println(bookRepo.get(0).get());
+        }
     }
 
     public List<Book> getAll() {
